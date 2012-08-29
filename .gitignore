@@ -1,0 +1,13 @@
+binary/*.iso
+binary/*.img
+binary/*.bin
+binary/*.a
+binary/*.lib
+build/
+documentation/.~lock.BackToMetal.odt#
+*.o
+CMakeCache.txt
+CMakeFiles
+Makefile
+cmake_install.cmake
+install_manifest.txt

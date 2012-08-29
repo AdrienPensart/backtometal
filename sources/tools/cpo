@@ -1,0 +1,9 @@
+#!/bin/sh
+
+set -x
+
+project=$1
+path=$2
+object=$3
+
+cp $object $path/$project.bin

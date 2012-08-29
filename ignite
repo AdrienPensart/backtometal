@@ -1,0 +1,57 @@
+#!/bin/sh
+
+EMULATOR=qemu-system-x86_64
+#EMULATOR=qemu-system-i386
+
+case "$1" in
+'configure')
+
+rm -rf build
+mkdir -p build
+cd build
+#export DC="/usr/bin/dmd"
+cmake ../sources -G "Unix Makefiles" -DCMAKE_BUILD_TYPE=Debug # -DCMAKE_D_BUILD_DOCS=True
+
+;;
+'build')
+
+cd build/
+make
+
+cd ../binary
+grub-mkrescue -o btm.iso iso
+
+echo "Build ended."
+exit 0
+
+;;
+'rebuild')
+
+cd build/
+make clean
+make
+
+echo "Build ended."
+exit 0
+
+;;
+'btm')
+#~ qemu -net none -boot a -fda binary/btm.img
+qemu -net none -boot d -cdrom binary/btm.iso
+
+;;
+'run')
+
+if [ -n "$2" ] ; then
+    cd binary/
+    cat $2.bin /dev/zero | dd of=$2.img bs=512 count=2880
+    #$EMULATOR -s -S -net none -boot a -fda $2.img
+    $EMULATOR -net none -boot a -fda $2.img
+    rm $2.img
+else
+    echo "Usage: ignite run sample_os"
+fi
+
+;;
+esac
+
