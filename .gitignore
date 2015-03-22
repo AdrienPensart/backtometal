@@ -4,7 +4,6 @@ binary/*.bin
 binary/*.a
 binary/*.lib
 build/
-documentation/.~lock.BackToMetal.odt#
 *.o
 CMakeCache.txt
 CMakeFiles

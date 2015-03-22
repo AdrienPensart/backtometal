@@ -1,0 +1,40 @@
+trampoline : code qui fait passer du mode 16 bit réel en mode 64 bit
+mode 16 bits réel : mode dans lequel le processeur se trouve au démarrage du PC, ne peut adresser seulement 1Mo, adressage par segment:offset
+mode 32 bits protégé : mode qui peut adresser 4Go (PMode)
+mode 64 bits
+
+unités:
+	- bit
+	- nibble (4 bits)
+	- byte/octet (8 bits)
+	- word/mot (16 bits, 2 bytes, 2 octets)
+
+boot:
+	- soit on s'appuie sur le standard multiboot de grub pour démarrer le noyau
+	- soit on s'appuie uniquement sur un bootloader de 512 octets
+
+d:
+	- le langage D a besoin d'un runtime pour son exécution : implémentation de Object, etc
+	- choix du mode 32 ou 64 bits
+	- choix du compilateur : gdc, ldc, dmd
+
+nasm:
+	- le plus simple assembleur
+	- .text : section de code
+	- .bss
+
+BIOS:
+	- vecteur d'interruption du BIOS
+	- BIOS Data Area
+	- interruption 10h : afficher un caractère à l'écran
+
+bootloader:
+	le pc démarre en mode 16 bits
+	le bootloader est chargé à l'adresse [ORG 0x7C00] par l'intermédiaire de l'interruption INT 0x19
+	taille : 512 octets grâce à l'instruction : TIMES 510 - ($ - $$) db 0
+	se termine par : 0xAA55
+
+	Mode LBA
+	Mode CHS
+
+Bootsector relocation avec l'instruction : rep movsd
